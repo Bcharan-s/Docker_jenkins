@@ -1,0 +1,9 @@
+pipeline{
+    agent any 
+
+    stages{
+        stage("SCm Checkout"){
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Bcharan-s/Docker_jenkins']])
+        }
+    }
+}
