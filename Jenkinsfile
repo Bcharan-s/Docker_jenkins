@@ -39,11 +39,11 @@ pipeline{
                     steps{
                        script{
                         sh """
-                            sed -i 's|image: *.|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
+                            sed -i 's|image: .*|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
 
                             cat deployment.yaml
 
-                            kubectl apply -f deployment.yaml --kubeconfig= ${WORKSPACE}/../.kubeadm/config
+                            kubectl apply -f deployment.yaml --kubeconfig ${WORKSPACE}/workspace/../.kubeadm/config
                         """
                        }
                     }   
