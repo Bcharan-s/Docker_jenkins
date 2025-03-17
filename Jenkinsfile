@@ -29,11 +29,24 @@ pipeline{
                         script{
                             withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
     
-                            sh"docker push ${REPOSITORY}:${BUILD_NUMBER} "
+                            sh"docker push ${REPOSITORY}:V0.0${BUILD_NUMBER} "
                             cleanWs()
                             }
                         }
                     }
+                }
+                stage{
+                    steps{
+                       script{
+                        sh """
+                            sed -i | image: *.| image: ${REPOSITORY}:V0.0${BUILD_NUMBER} deployment.yml
+
+                            cat deployment.yaml
+
+                            kubectl --kubeconfig= ${WORKSPACE}/../.kubeadm/config deployment.yaml
+                        """
+                       }
+                    }   
                 }
                 
     }
