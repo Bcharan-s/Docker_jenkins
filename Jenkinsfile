@@ -13,16 +13,16 @@ pipeline{
      stage("Docker Build Image"){
         steps{
             script{
-                sh "docker build -t docker_image:latest ."
+                sh "docker build -t cherry98/first_app:${BUILD_NUMBER} ."
             }
         }
      }
     stage("Docker Push Image"){
         steps{
             script{
-            withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: 'https://registry.hub.docker.com') {
+            withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: '') {
     // some block
-               sh"docker push docker_image:latest "
+               sh"docker push cherry98/first_app:${BUILD_NUMBER} "
                cleanWs()
             }
 }
