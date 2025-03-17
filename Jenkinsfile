@@ -13,7 +13,7 @@ pipeline{
      stage("Docker Build Image"){
         steps{
             script{
-                sh "docker build -t ${env.JOB_NAME}:${env.BUILD} ."
+                sh "docker build -t ${env.JOB_NAME}:latest ."
             }
         }
      }
@@ -22,7 +22,7 @@ pipeline{
             script{
             withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: 'https://index.docker.io/v1/') {
     // some block
-               sh"docker push ${env.JOB_NAME}:${env.BUILD} "
+               sh"docker push ${env.JOB_NAME}:latest "
             }
 }
         }
