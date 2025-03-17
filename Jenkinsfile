@@ -1,5 +1,8 @@
 pipeline{
     agent any 
+    environment{
+     REGISTRY = "cherry98"
+    }
 
     stages{
         stage("SCm Checkout"){
@@ -22,7 +25,7 @@ pipeline{
             script{
             withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: 'https://index.docker.io/v1/') {
     // some block
-               sh"docker push docker_image:latest "
+               sh"docker push ${REGISTRY}/docker_image:latest "
                cleanWs()
             }
 }
