@@ -12,7 +12,7 @@ COPY go.mod ./
 
 COPY . .
 
-RUN go build -o myapp .
+RUN go build -buildvcs=false -o myapp .
 
 FROM gcr.io/distroless/base
 
