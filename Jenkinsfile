@@ -50,5 +50,10 @@ pipeline{
                 }
                 
     }
-    cleanWs()
+    post{
+        failure{
+            echo "Deployment failed"
+            cleanWs()
+        }
+    }
 }
