@@ -39,7 +39,7 @@ pipeline{
                     steps{
                        script{
                         sh """
-                            sed -i | image: *.| image: ${REPOSITORY}:V0.0.${BUILD_NUMBER} deployment.yaml
+                            sed -i 's|image: *.|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
 
                             cat deployment.yaml
 
