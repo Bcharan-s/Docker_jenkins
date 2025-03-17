@@ -10,28 +10,29 @@ pipeline{
                 git credentialsId: 'ed4dd9ce-380a-44c7-a68b-e923954ceb9c', url: 'https://github.com/Bcharan-s/Docker_jenkins.git', branch: 'main'
             
         
+            }
         }
-    }
 
         stage('Docker Build Image'){
             steps{
                 script{
                     sh "docker build -t ${REPOSITORY}:${BUILD_NUMBER} ."
-                    
-            }
-            echo "IMAGE BUILD SUCCESSFUL"
+                    echo "IMAGE BUILD SUCCESSFUL"
+
+                }
         
-     }
+            }
         stage('Docker Push Image'){
             steps{
                 script{
-                    withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: '') {
-    // some block
+                    withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
+    
                     sh"docker push ${REPOSITORY}:${BUILD_NUMBER} "
                     cleanWs()
                     }
-            }
                 }
+            }
+        }
         }
     }
 }
