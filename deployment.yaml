@@ -17,18 +17,19 @@ spec:
         - name: myapp
           image: myregistry.com/myapp:latest  # This will be replaced by Jenkins
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service
-  namespace: default
 spec:
   selector:
-    app: myapp
+    app: myapp  # This must match the labels in your Pod/Deployment
+  type: NodePort
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
+      port: 80       # Internal service port
+      targetPort: 8080  # Container port inside the pod
+      nodePort: 30007  # Exposed port on the Node (must be in range 30000-32767)
+
