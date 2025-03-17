@@ -39,11 +39,11 @@ pipeline{
                     steps{
                        script{
                         sh """
-                            sed -i 's|image: *.|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
+                            sed -i 's/image: *./image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}/g' deployment.yaml
 
                             cat deployment.yaml
 
-                            kubectl --kubeconfig= ${WORKSPACE}/../.kubeadm/config apply -f deployment.yaml
+                            kubectl apply -f deployment.yaml --kubeconfig= ${WORKSPACE}/../.kubeadm/config
                         """
                        }
                     }   
@@ -53,6 +53,10 @@ pipeline{
     post{
         failure{
             echo "Deployment failed"
+            cleanWs()
+        }
+        success{
+            echo "deployment completed"
             cleanWs()
         }
     }
