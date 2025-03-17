@@ -17,9 +17,10 @@ pipeline{
             steps{
                 script{
                     sh "docker build -t ${REPOSITORY}:${BUILD_NUMBER} ."
-                    echo ""
+                    
             }
-        }
+            echo "IMAGE BUILD SUCCESSFUL"
+        
      }
         stage('Docker Push Image'){
             steps{
