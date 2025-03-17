@@ -17,7 +17,7 @@ pipeline{
                 stage("Docker Build Image"){
                     steps{
                         script{
-                            sh "docker build -t ${REPOSITORY}:${BUILD_NUMBER} ."
+                            sh "docker build -t ${REPOSITORY}:V0.0.${BUILD_NUMBER} ."
                             echo "IMAGE BUILD SUCCESSFUL"
 
                         }
@@ -29,7 +29,7 @@ pipeline{
                         script{
                             withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
     
-                            sh"docker push ${REPOSITORY}:V0.0${BUILD_NUMBER} "
+                            sh"docker push ${REPOSITORY}:V0.0.${BUILD_NUMBER} "
                             cleanWs()
                             }
                         }
@@ -39,7 +39,7 @@ pipeline{
                     steps{
                        script{
                         sh """
-                            sed -i | image: *.| image: ${REPOSITORY}:V0.0${BUILD_NUMBER} deployment.yml
+                            sed -i | image: *.| image: ${REPOSITORY}:V0.0.${BUILD_NUMBER} deployment.yml
 
                             cat deployment.yaml
 
