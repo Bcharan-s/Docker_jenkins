@@ -13,26 +13,27 @@ pipeline{
             }
         }
 
-        stage('Docker Build Image'){
-            steps{
-                script{
-                    sh "docker build -t ${REPOSITORY}:${BUILD_NUMBER} ."
-                    echo "IMAGE BUILD SUCCESSFUL"
 
-                }
+                stage('Docker Build Image'){
+                    steps{
+                        script{
+                            sh "docker build -t ${REPOSITORY}:${BUILD_NUMBER} ."
+                            echo "IMAGE BUILD SUCCESSFUL"
+
+                        }
         
-            }
-        stage('Docker Push Image'){
-            steps{
-                script{
-                    withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
+                    }
+                stage('Docker Push Image'){
+                    steps{
+                        script{
+                            withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
     
-                    sh"docker push ${REPOSITORY}:${BUILD_NUMBER} "
-                    cleanWs()
+                            sh"docker push ${REPOSITORY}:${BUILD_NUMBER} "
+                            cleanWs()
+                            }
+                        }
                     }
                 }
-            }
-        }
-        }
+                }
     }
 }
