@@ -43,7 +43,7 @@ pipeline{
 
                             cat deployment.yaml
 
-                            kubectl apply -f deployment.yaml --kubeconfig ${WORKSPACE}/workspace/../.kubeadm/config
+                            kubectl apply -f deployment.yaml --kubeconfig ${WORKSPACE}/../.kubeadm/config
                         """
                        }
                     }   
