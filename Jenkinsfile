@@ -2,6 +2,7 @@ pipeline{
     agent any 
     environment{
         REPOSITORY = "cherry98/first_app"
+        K8_SECRET_TOKEN = Credentials('k8-secret-token')
     }
 
     stages{
@@ -43,7 +44,7 @@ pipeline{
 
                             cat deployment.yaml
 
-                            kubectl apply -f deployment.yaml --kubeconfig ${WORKSPACE}/../.kubeadm/config
+                            kubectl apply -f deployment.yaml --token=${K8_SECRET_TOKEN}
                         """
                        }
                     }   
