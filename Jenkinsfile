@@ -56,12 +56,12 @@ pipeline{
     post{
         failure{
             echo "Deployment failed, removing recent build docker image"
-            script{
-                withDockerRegistry(credentialsId: 'ef02a1f0-d2bd-4723-b15a-a380ee0a8502', url: ''){
+
+            withDockerRegistry(credentialsId: 'ef02a1f0-d2bd-4723-b15a-a380ee0a8502', url: ''){
     
                 sh"docker push ${REPOSITORY}:V0.0.${BUILD_NUMBER} "
                             
-                }
+            }
             cleanWs()
             }
         success{
