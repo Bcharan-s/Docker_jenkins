@@ -18,7 +18,7 @@ pipeline{
                 stage("Docker Build Image"){
                     steps{
                         script{
-                            sh "docker build -t ${REPOSITORY}:V0..${BUILD_NUMBER} ."
+                            sh "docker build -t ${REPOSITORY}:V0.0.${BUILD_NUMBER} ."
                             echo "IMAGE BUILD SUCCESSFUL"
 
                         }
@@ -55,13 +55,7 @@ pipeline{
     }
     post{
         failure{
-            echo "Deployment failed, removing recent build docker image"
-
-            withDockerRegistry(credentialsId: 'ef02a1f0-d2bd-4723-b15a-a380ee0a8502', url: ''){
-    
-                sh"docker rmi ${REPOSITORY}:V0.0.${BUILD_NUMBER} "
-                            
-            }
+            echo "Deployment failed"
             cleanWs()
             }
         success{
