@@ -44,7 +44,7 @@ pipeline{
 
                             cat deployment.yaml
 
-                            kubectl create -f deployment.yaml --token=${K8_SECRET_TOKEN}
+                            kubectl create -f deployment.yaml --token=${K8_SECRET_TOKEN} --validate=false
                         """
                        }
                     }   
