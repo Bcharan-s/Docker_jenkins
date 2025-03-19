@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage("Scm Checkout"){
            steps{
-                git credentialsId: 'ed4dd9ce-380a-44c7-a68b-e923954ceb9c', url: 'https://github.com/Bcharan-s/Docker_jenkins.git', branch: 'main'
+                git credentialsId: 'ff790018-b09e-4fe7-ba7b-e02acfecc631', url: 'https://github.com/Bcharan-s/Docker_jenkins.git', branch: 'main'
             
         
             }
@@ -28,7 +28,7 @@ pipeline{
                 stage("Docker Push Image"){
                     steps{
                         script{
-                            withDockerRegistry(credentialsId: '6c223acd-8fe3-41b8-878c-a8775b2d83df', url: ''){
+                            withDockerRegistry(credentialsId: 'ef02a1f0-d2bd-4723-b15a-a380ee0a8502', url: ''){
     
                             sh"docker push ${REPOSITORY}:V0.0.${BUILD_NUMBER} "
                             
