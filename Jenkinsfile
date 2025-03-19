@@ -40,12 +40,12 @@ pipeline{
                     steps{
                        script{
                         sh """
-                            sed -i 's|image: .*|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
+                            sed -i 's|image: .*|image: ${REPOSITORY}:V0..${BUILD_NUMBER}|' deployment.yaml
 
                             cat deployment.yaml
                         """
                         withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'minikube', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:57833']]) {
-                                // sh"kubectl apply -f deployment.yaml"
+                                sh"kubectl apply -f deployment.yaml"
                         
                         }
                        }
