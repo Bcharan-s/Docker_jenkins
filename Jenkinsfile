@@ -54,6 +54,7 @@ pipeline{
     post{
         failure{
             echo "Deployment failed"
+            sh"docker rmi ${REPOSITORY}:V0.0.${BUILD_NUMBER} 
             cleanWs()
         }
         success{
