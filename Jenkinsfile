@@ -2,7 +2,7 @@ pipeline{
     agent any 
     environment{
         REPOSITORY = "cherry98/first_app"
-        K8_SECRET_TOKEN = Credentials('k8-secret-token')
+        K8_SECRET_TOKEN = credentials('k8-secret-token')
     }
 
     stages{
