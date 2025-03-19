@@ -2,7 +2,7 @@ pipeline{
     agent any 
     environment{
         REPOSITORY = "cherry98/first_app"
-        K8_SECRET_TOKEN = credentials('k8-secret-token')
+        
     }
 
     stages{
@@ -43,9 +43,11 @@ pipeline{
                             sed -i 's|image: .*|image: ${REPOSITORY}:V0.0.${BUILD_NUMBER}|' deployment.yaml
 
                             cat deployment.yaml
-
-                            kubectl create -f deployment.yaml --token=${K8_SECRET_TOKEN} --validate=false
                         """
+                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'minikube', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:57833']]) {
+                                sh"kubectl apply -f deployment.yaml"
+                        
+                        }
                        }
                     }   
                 }
@@ -54,7 +56,7 @@ pipeline{
     post{
         failure{
             echo "Deployment failed"
-            sh"docker rmi ${REPOSITORY}:V0.0.${BUILD_NUMBER} 
+            sh"docker rmi ${REPOSITORY}:V0.0.${BUILD_NUMBER}"
             cleanWs()
         }
         success{
@@ -63,3 +65,4 @@ pipeline{
         }
     }
 }
+
