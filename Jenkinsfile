@@ -45,7 +45,7 @@ pipeline{
                             cat deployment.yaml
                         """
                         withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'minikube', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:57833']]) {
-                                sh"kubectl apply -f deployment.yaml"
+                                // sh"kubectl apply -f deployment.yaml"
                         
                         }
                        }
@@ -55,10 +55,15 @@ pipeline{
     }
     post{
         failure{
-            echo "Deployment failed"
-            sh"docker rmi ${REPOSITORY}:V0.0.${BUILD_NUMBER}"
+            echo "Deployment failed, removing recent build docker image"
+            script{
+                withDockerRegistry(credentialsId: 'ef02a1f0-d2bd-4723-b15a-a380ee0a8502', url: ''){
+    
+                sh"docker push ${REPOSITORY}:V0.0.${BUILD_NUMBER} "
+                            
+                }
             cleanWs()
-        }
+            }
         success{
             echo "deployment completed"
             cleanWs()
