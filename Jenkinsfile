@@ -48,7 +48,7 @@ pipeline{
 
                             cat deployment.yaml
                         """
-                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'stage', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:62084']]) {
+                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '${params.ENVIRONMENT}', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:62084']]) {
                                 sh"kubectl apply -f deployment.yaml"
                         
                         }
