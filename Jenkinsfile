@@ -48,7 +48,7 @@ pipeline{
 
                             cat deployment.yaml
                         """
-                        cat ${params.CONTEXT}
+                        echo  "${params.CONTEXT}"
                         withKubeConfig(caCertificate: '', clusterName: '', contextName: '${params.CONTEXT}', credentialsId: 'k8-secret-token', namespace: '', restrictKubeConfigAccess: true, serverUrl: 'https://127.0.0.1:62084') {
                                 sh"kubectl apply -f deployment.yaml"
                         
