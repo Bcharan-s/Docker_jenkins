@@ -4,6 +4,10 @@ pipeline{
         REPOSITORY = "cherry98/first_app"
         
     }
+    parameters{
+        choice(name: 'ENVIRONMENT', choices: ['stage', 'minikube'], description: 'Select Cluster')
+
+    }
 
     stages{
         stage("Scm Checkout"){
