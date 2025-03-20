@@ -5,7 +5,7 @@ pipeline{
         
     }
     parameters{
-        choice(name: 'ENVIRONMENT', choices: ['stage', 'minikube'], description: 'Select Cluster')
+        choice(name: 'CONTEXT', choices: ['stage', 'prod'], description: 'Select CONTEXT')
 
     }
 
@@ -48,7 +48,7 @@ pipeline{
 
                             cat deployment.yaml
                         """
-                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '${params.ENVIRONMENT}', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:62084']]) {
+                        withKubeConfig(caCertificate: '', clusterName: '', contextName: '${params.CONTEXT}', credentialsId: 'k8-secret-token', namespace: '', restrictKubeConfigAccess: true, serverUrl: 'https://127.0.0.1:62084') {
                                 sh"kubectl apply -f deployment.yaml"
                         
                         }
