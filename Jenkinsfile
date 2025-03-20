@@ -44,7 +44,7 @@ pipeline{
 
                             cat deployment.yaml
                         """
-                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'minikube', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:57833']]) {
+                        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'stage', contextName: '', credentialsId: 'k8-secret-token', namespace: '', serverUrl: 'https://127.0.0.1:57833']]) {
                                 sh"kubectl apply -f deployment.yaml"
                         
                         }
